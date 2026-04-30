@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Device } from '../data/mockDevices';
 import {
   Drawer,
@@ -11,6 +12,7 @@ import { format } from 'date-fns';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { EditDeviceDialog } from './EditDeviceDialog';
 
 interface DeviceDetailDrawerProps {
   device: Device | null;
@@ -23,6 +25,8 @@ export function DeviceDetailDrawer({
   open,
   onClose,
 }: DeviceDetailDrawerProps) {
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+
   if (!device) return null;
 
   const statusVariants = {
@@ -214,7 +218,11 @@ export function DeviceDetailDrawer({
           </div>
 
           <div className="flex gap-2 pt-4">
-            <Button className="flex-1" variant="outline">
+            <Button
+              className="flex-1"
+              variant="outline"
+              onClick={() => setEditDialogOpen(true)}
+            >
               Edit Device
             </Button>
             <Button className="flex-1" variant="destructive">
@@ -223,6 +231,12 @@ export function DeviceDetailDrawer({
           </div>
         </div>
       </DrawerContent>
+
+      <EditDeviceDialog
+        device={device}
+        open={editDialogOpen}
+        onClose={() => setEditDialogOpen(false)}
+      />
     </Drawer>
   );
 }

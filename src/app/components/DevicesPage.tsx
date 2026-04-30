@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { mockDevices, Device } from '../data/mockDevices';
 import { DeviceCard } from './DeviceCard';
 import { DeviceDetailDrawer } from './DeviceDetailDrawer';
+import { AddDeviceDialog } from './AddDeviceDialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Plus, Search } from 'lucide-react';
@@ -16,6 +17,7 @@ import {
 export function DevicesPage() {
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -25,7 +27,7 @@ export function DevicesPage() {
   };
 
   const handleAddDevice = () => {
-    alert('Add Device functionality would open a dialog here');
+    setAddDialogOpen(true);
   };
 
   const filteredDevices = mockDevices.filter((device) => {
@@ -140,6 +142,11 @@ export function DevicesPage() {
         device={selectedDevice}
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
+      />
+
+      <AddDeviceDialog
+        open={addDialogOpen}
+        onClose={() => setAddDialogOpen(false)}
       />
     </div>
   );
