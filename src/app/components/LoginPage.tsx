@@ -11,7 +11,7 @@ export function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/dashboard/devices');
+    navigate('/dashboard/overview');
   };
 
   return (
